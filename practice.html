@@ -1,1 +1,64 @@
-1
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ボタンで円を作成</title>
+    <style>
+        /* 円の基本スタイル */
+        .circle {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%; /* これで円になります */
+            position: absolute; /* ページ内の好きな場所に配置できるようにする */
+            transition: opacity 0.5s; /* フェードイン効果用 */
+            opacity: 0; /* 最初は非表示 */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>円を作成するデモ</h1>
+    
+    <button onclick="createCircle()">円を作成</button>
+    
+    <div id="container">
+        </div>
+
+    <script>
+        function createCircle() {
+            // 1. 新しいdiv要素（円）を作成
+            const newCircle = document.createElement('div');
+            
+            // 2. CSSクラス 'circle' を適用して円のスタイルを設定
+            newCircle.classList.add('circle');
+            
+            // 3. 円のランダムな位置を計算
+            // 画面の幅と高さから、円が完全に見える範囲でランダムな座標を生成
+            const container = document.getElementById('container');
+            const containerWidth = window.innerWidth;
+            const containerHeight = window.innerHeight;
+            const circleSize = 50; // CSSで設定したサイズ
+
+            // ランダムな位置 (0から (幅/高さ - 円のサイズ) の範囲)
+            const randomX = Math.floor(Math.random() * (containerWidth - circleSize));
+            const randomY = Math.floor(Math.random() * (containerHeight - circleSize));
+
+            // 4. スタイルを設定して位置を適用
+            newCircle.style.left = `${randomX}px`;
+            newCircle.style.top = `${randomY}px`;
+            
+            // 5. 作成した円をコンテナに追加
+            document.getElementById('container').appendChild(newCircle);
+
+            // 6. 少し遅れてフェードインさせる (opacity: 0 -> 1)
+            // これで円が表示されます
+            setTimeout(() => {
+                newCircle.style.opacity = '1';
+            }, 10);
+        }
+    </script>
+
+</body>
+</html>
